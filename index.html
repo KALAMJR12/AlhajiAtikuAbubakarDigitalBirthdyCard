@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Atiku - Quiz Card</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <img src="assets/logo.png" alt="Foundation Logo" class="logo">
+
+    <!-- Landing Page -->
+    <div id="landing">
+        <h1>🎉 Happy Birthday Atiku! 🎉</h1>
+        <p>Test your knowledge and unlock a surprise!</p>
+        <button id="start-btn">Start Quiz</button>
+    </div>
+
+    <!-- Quiz Section -->
+    <div id="quiz" class="hidden">
+        <div id="question-container">
+            <h2 id="question-text"></h2>
+            <div id="options"></div>
+        </div>
+        <div id="feedback"></div>
+    </div>
+
+    <!-- Final Message -->
+    <div id="final" class="hidden">
+        <div id="final-card">
+            <h1>🎊 Congratulations! 🎊</h1>
+            <p id="score-text"></p>
+            <p>Happy Birthday Atiku! Wishing you continued leadership and inspiration.</p>
+            <canvas id="confetti-canvas"></canvas>
+            <button id="download-btn">Download Image</button>
+            <button id="share-whatsapp">Share on WhatsApp</button>
+            <button id="share-facebook">Share on Facebook</button>
+            <button id="share-twitter">Share on Twitter</button>
+        </div>
+    </div>
+</div>
+
+<script src="confetti.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
