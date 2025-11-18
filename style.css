@@ -1,48 +1,156 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #e6f2ff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
+/* Basic reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+
+/* background animated moving text */
+.bg-marquee {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(230,245,230,0.25), rgba(240,255,240,0.12));
 }
 
+.marquee-track {
+  display: flex;
+  width: calc(300%); /* long track */
+  gap: 60px;
+  animation: marquee 18s linear infinite;
+  align-items: center;
+  height: 40px;
+  padding-left: 10%;
+  color: rgba(0,0,0,0.08);
+  font-weight: 700;
+  font-size: 24px;
+  transform: translate3d(0,0,0);
+}
+.marquee-track span { margin-right: 30px; white-space: nowrap; letter-spacing: 1px; }
+
+/* marquee animation */
+@keyframes marquee {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-40%); }
+}
+
+/* container */
 .container {
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    position: relative;
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  margin: 40px auto;
+  max-width: 420px;
+  width: 92%;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  text-align: center;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-.logo { width: 80px; margin-bottom: 20px; }
+/* logo */
+.logo {
+  width: 76px;
+  height: auto;
+  display: block;
+  margin: 0 auto 14px;
+}
 
+/* landing */
+#landing h1 { font-size: 22px; color: #0a652e; margin-bottom: 8px; }
+#landing p { margin-bottom: 12px; color: #333; }
+#playerName {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+/* buttons */
 button {
-    background-color: #009933;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px;
-    font-size: 16px;
+  background: #0a652e; /* foundation green */
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 6px;
 }
+button:hover { background: #085028; }
 
-button:hover { background-color: #007a29; }
-
+/* hidden helper */
 .hidden { display: none; }
 
-#options button { display: block; width: 100%; margin: 10px 0; }
+/* quiz */
+#question-container { margin-top: 6px; }
+#question-text { font-size: 18px; color: #111; margin-bottom: 12px; }
+#options button {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0;
+  text-align: left;
+  background: #f6fff6;
+  border: 1px solid #e6f2ea;
+  color: #0a652e;
+  border-radius: 8px;
+}
+#options button:hover { background: #e9f7ea; }
 
-#feedback { font-weight: bold; margin-top: 10px; }
+/* feedback */
+#feedback { margin-top: 10px; font-weight:700; min-height: 22px; }
 
-#confetti-canvas {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
+/* final card area */
+#final-card { position: relative; padding: 18px; }
+.final-score { font-size: 20px; color: #0a652e; font-weight: 700; margin: 8px 0; }
+.final-msg { color: #333; margin-bottom: 12px; }
+
+/* confetti canvas */
+#confetti-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+
+/* share card styles (graphic) */
+.share-card {
+  width: 900px; /* large for high quality. html2canvas scale handles downscaling */
+  max-width: 900px;
+  padding: 28px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 6px solid #083a8c; /* Atiku blue border */
+  color: #0b1b2b;
+  font-family: 'Poppins', sans-serif;
+  display: block;
+}
+
+.share-card .atiku-img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  border: 3px solid #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+.share-card .share-content { padding-right: 140px; } /* create space for top image */
+
+.card-header {
+  font-size: 30px;
+  color: #083a8c;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.score-section .username { font-size: 22px; color: #333; margin-bottom: 6px; }
+.score-section .score { font-size: 28px; color: #083a8c; font-weight: 800; }
+
+.footer { margin-top: 18px; font-size: 20px; color: #222; }
+.footer .phone { color: #083a8c; font-weight: 700; font-size: 22px; }
+
+/* responsive adjustments */
+@media (max-width:600px){
+  .container { padding: 18px; margin: 20px; }
+  .share-card { width: 600px; max-width: 600px; }
 }
