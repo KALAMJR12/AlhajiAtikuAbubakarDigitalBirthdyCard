@@ -90,8 +90,13 @@ button { cursor: pointer; border: none; padding: 10px 14px; border-radius: 10px;
 }
 
 /* Score & Username */
-.share-username {
+/* .share-username {
   font-size: 46px;
+  margin-bottom: 10px;
+}
+*/
+/* add this commit */
+.score-section { font-size: 46px;
   margin-bottom: 10px;
 }
 
@@ -110,7 +115,8 @@ button { cursor: pointer; border: none; padding: 10px 14px; border-radius: 10px;
 }
 
 /* Footer */
-.share-footer {
+/*.share-footer*/
+.footer {
   position: absolute;
   bottom: 60px;
   width: 100%;
@@ -119,7 +125,9 @@ button { cursor: pointer; border: none; padding: 10px 14px; border-radius: 10px;
   color: #d4af37;
 }
 
-.share-footer:before {
+/*.share-footer:*/
+
+.footer:before {
   content: "";
   width: 60%;
   height: 3px;
