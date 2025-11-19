@@ -1,81 +1,140 @@
-/* Reset & base */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html,body { height: 100%; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background: #f3fff6; }
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #f3fff6; font-family: Inter, sans-serif; }
 
-/* Moving background marquee */
-.bg-marquee { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.marquee-track { display:flex; gap:60px; animation: marquee 18s linear infinite; align-items:center; height:48px; padding-left:6%; color: rgba(0,0,0,0.06); font-weight:800; font-size:22px; transform: translate3d(0,0,0); }
-.marquee-track span { white-space:nowrap; }
-@keyframes marquee { from{transform:translateX(0%);} to{transform:translateX(-40%);} }
+/* Animated Background */
+.bg-marquee {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.marquee-track {
+  display:flex;
+  gap:60px;
+  animation: marquee 18s linear infinite;
+  align-items:center;
+  height:48px;
+  padding-left:6%;
+  color: rgba(0,0,0,0.06);
+  font-weight:800;
+  font-size:22px;
+}
+@keyframes marquee {
+  from { transform: translateX(0%); }
+  to   { transform: translateX(-40%); }
+}
 
 /* Container */
-.container { position: relative; z-index: 2; margin: 36px auto; max-width: 420px; width: 92%; padding: 22px; border-radius: 14px; box-shadow: 0 14px 40px rgba(0,0,0,0.10); background: #ffffff; text-align:center; }
+.container {
+  position:relative;
+  z-index:5;
+  margin: 40px auto;
+  max-width: 420px;
+  width: 92%;
+  padding: 24px;
+  background:white;
+  border-radius:16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  text-align:center;
+}
 
-/* Logo */
-.logo { width: 76px; display:block; margin: 0 auto 12px; }
+.logo {
+  width:80px;
+  margin:0 auto 12px;
+}
 
-/* Card sections */
-.card { padding: 10px 6px 18px; }
-.hidden { display: none; }
+.card { padding: 12px; }
+.hidden { display:none; }
 
 /* Headings */
-h1 { font-size: 22px; color: #0a652e; margin-bottom: 6px; }
-.final-score { font-size: 18px; color: #0a652e; font-weight:700; margin: 8px 0; }
+h1 {
+  font-size: 24px;
+  color:#0a652e;
+  margin-bottom: 8px;
+}
 
-/* Input */
-input[type="text"] { width: 100%; padding: 10px 12px; border-radius: 8px; border:1px solid #e6efe6; margin-bottom: 12px; font-size: 14px; }
+/* Inputs */
+input[type="text"] {
+  width:100%;
+  padding:12px;
+  margin:12px 0;
+  border-radius:8px;
+  border:1px solid #dcdcdc;
+  font-size:15px;
+}
 
 /* Buttons */
-button { cursor: pointer; border: none; padding: 10px 14px; border-radius: 10px; font-size: 15px; margin: 6px 6px 6px 0; background: #e6f6ec; color: #083a8c; }
-.primary { background:#0a652e; color:#fff; }
+button {
+  cursor:pointer;
+  padding:10px 14px;
+  border-radius:8px;
+  font-size:15px;
+  margin:4px;
+  border:none;
+}
+
+.primary { background:#0a652e; color:white; }
 .secondary { background:#f0f3f0; color:#0a652e; }
 
 /* Options */
-.options button { width:100%; display:block; text-align:left; padding:10px 12px; margin:8px 0; border-radius:8px; background:#f6fff6; border:1px solid #e6f2ea; color:#0a652e; }
-.options button:hover { background:#e9f7ea; }
+.options button {
+  width:100%;
+  text-align:left;
+  padding:12px;
+  margin:8px 0;
+  border:1px solid #e6e6e6;
+  border-radius:8px;
+}
 
-/* Feedback */
-.feedback { margin-top:10px; min-height:22px; font-weight:700; }
+/* FINAL CARD */
+.final-score {
+  font-size:18px;
+  font-weight:700;
+  color:#0a652e;
+  margin-top:10px;
+}
 
-/* Final actions layout */
-.final-actions { margin-top:12px; display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+/* SHARE CARD DESIGN */
+#share-card-wrapper { position: absolute; top:-9999px; }
 
-/* Confetti canvas (covers final-card area) */
-.confetti-canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:5; }
-
-/* ---------- SHARE CARD (PORTRAIT 1080x1920) ---------- */
 .share-card {
-  width: 1080px; height: 1920px;
-  padding: 48px;
-  border-radius: 28px;
-  background:#ffffff;
-  border: 8px solid #083a8c; /* Atiku blue */
-  color:#071427;
-  font-family: 'Poppins', system-ui, Arial;
-  position: relative;
-  display: block;
+  width:1080px;
+  height:1920px;
+  background:linear-gradient(180deg, #020b18, #061a33);
+  border:8px solid #d4af37;
+  border-radius:30px;
+  padding:60px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  color:white;
+  font-family: Poppins, sans-serif;
 }
 
-/* Atiku image top-right */
-.atiku-img {
-  width: 210px; height:210px; object-fit:cover;
-  border-radius: 14px; position:absolute; top:48px; right:48px;
-  border: 5px solid #fff; box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+.share-title-small { font-size:38px; color:#d4af37; }
+.share-title-main { font-size:64px; font-weight:900; margin-bottom:35px; }
+
+.share-photo {
+  width:460px;
+  height:460px;
+  border-radius:50%;
+  border:12px solid #d4af37;
+  object-fit:cover;
+  margin-bottom:40px;
 }
 
-/* Share content (leave space for image) */
-.share-content { padding-right: 280px; }
+.share-username { font-size:46px; }
+.share-score { font-size:72px; font-weight:900; color:#d4af37; margin:20px 0; }
 
-/* Header & texts */
-.card-header { font-size: 52px; color:#083a8c; font-weight:900; margin-bottom: 28px; line-height:1.05; }
-.score-section .username { font-size: 36px; color:#071427; margin-bottom:10px; }
-.score-section .score { font-size: 48px; color:#083a8c; font-weight:900; }
+.share-cta { font-size:40px; margin-bottom:40px; }
 
-/* Footer */
-.footer { position:absolute; left:48px; bottom:48px; font-size: 36px; color:#071427; }
-.footer .phone { color:#083a8c; font-weight:900; margin-top:6px; }
-
-/* Responsive: reduce share-card width for smaller screens when generating (still high quality via scale) */
-@media (max-width: 600px) {
-  .container { margin: 16px auto; padding: 16px; }
+.share-footer {
+  color:#d4af37;
+  font-size:36px;
+  position:absolute;
+  bottom:60px;
+  text-align:center;
 }
