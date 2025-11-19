@@ -1,80 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atiku Birthday Quiz</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday Atiku - Quiz Card</title>
 
-  <!-- Netlify Deploy Button -->
-  <script defer src="https://buttons.github.io/buttons.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <!-- html2canvas and canvas-confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-
-<!-- Moving Background -->
-<div class="bg-marquee">
-  <div class="marquee-track">
-    <span>🎉 Happy Birthday Alhaji Atiku Abubakar 🎉 — Sponsored by Sheik Ahmad Tijjani Umar Foundation — </span>
-    <span>🎉 Happy Birthday Alhaji Atiku Abubakar 🎉 — Sponsored by Sheik Ahmad Tijjani Umar Foundation — </span>
-  </div>
-</div>
-
-<!-- App Container -->
-<div class="container">
-
-  <img src="assets/logo.png" class="logo" alt="Logo">
-
-  <!-- Landing Page -->
-  <div id="landing" class="card">
-    <h1>Happy Birthday Atiku!</h1>
-
-    <input type="text" id="username" placeholder="Enter your name" />
-
-    <button class="primary" id="start-btn">Start Quiz</button>
-  </div>
-
-  <!-- Quiz -->
-  <div id="quiz" class="hidden card">
-    <h2 id="question-text"></h2>
-    <div id="options" class="options"></div>
-    <div id="feedback" class="feedback"></div>
-  </div>
-
-  <!-- Final Screen -->
-  <div id="final" class="hidden card">
-    <h1>🎉 Congratulations! 🎉</h1>
-
-    <p id="score-text" class="final-score"></p>
-
-    <div class="final-actions">
-      <button class="primary" id="download-btn">Download Image</button>
-      <button class="secondary" id="share-whatsapp">Share to WhatsApp Status</button>
-      <button class="secondary" id="share-facebook">Share to Facebook</button>
+  <!-- Animated moving background text -->
+  <div class="bg-marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>🎉 Happy Birthday Alhaji Atiku 🎉</span>
+      <span>• Sponsored by Sheik Ahmad Tijjani Umar Foundation •</span>
+      <span>🎉 Happy Birthday Alhaji Atiku 🎉</span>
+      <span>• Sponsored by Sheik Ahmad Tijjani Umar Foundation •</span>
     </div>
   </div>
 
-</div>
+  <main class="container" role="main">
+    <img src="assets/logo.png" alt="Foundation Logo" class="logo" />
 
-<!-- Hidden Share Card for Export -->
-<div id="share-card-wrapper" class="hidden">
-  <div id="share-card" class="share-card">
-    <div class="share-title-small">🎉 HAPPY BIRTHDAY 🎉</div>
-    <div class="share-title-main">ALHAJI ATIKU ABUBAKAR</div>
+    <!-- Landing / name input -->
+    <section id="landing" class="card">
+      <h1>🎉 Happy Birthday Atiku! 🎉</h1>
+      <p>Test your knowledge and unlock a surprise!</p>
 
-    <img src="https://i.ibb.co/Zp9rZ6b3/Atiku-Image.jpg" class="share-photo" alt="Atiku">
+      <input id="playerName" type="text" placeholder="Enter your name (will appear on card)" />
 
-    <div class="share-username" id="sc-username">User</div>
-    <div class="share-score" id="sc-score">Score: 0/5</div>
+      <button id="start-btn" class="primary">Start Quiz</button>
+    </section>
 
-    <div class="share-cta">Join the Atiku Movement<br>📞 09012345678</div>
+    <!-- Quiz -->
+    <section id="quiz" class="card hidden" aria-hidden="true">
+      <div id="question-container">
+        <h2 id="question-text"></h2>
+        <div id="options" class="options"></div>
+      </div>
+      <div id="feedback" class="feedback" aria-live="polite"></div>
+    </section>
 
-    <div class="share-footer">Sponsored by Sheik Ahmad Tijjani Umar Foundation</div>
-  </div>
-</div>
+    <!-- Final -->
+    <section id="final" class="card hidden" aria-hidden="true">
+      <div id="final-card" class="final-card">
+        <h1>🎊 Congratulations! 🎊</h1>
+        <p id="score-text" class="final-score"></p>
+        <p class="final-msg">Happy Birthday Alhaji Atiku! Wishing you continued leadership and inspiration.</p>
 
-<script src="html2canvas.min.js"></script>
-<script src="script.js"></script>
+        <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
+        <div class="final-actions">
+          <button id="download-btn" class="primary">Download Image</button>
+          <button id="share-whatsapp">Share to WhatsApp Status</button>
+          <button id="share-facebook">Device Share (Facebook etc.)</button>
+          <button id="share-twitter">Share to Twitter</button>
+          <button id="play-again" class="secondary">Play Again</button>
+        </div>
+      </div>
+
+      <!-- Hidden shareable portrait card (off-screen for html2canvas capture) -->
+      <aside id="shareCard" class="share-card" aria-hidden="true" style="position:absolute; left:-9999px; top:0;">
+        <img src="assets/atiku.png" alt="Atiku" class="atiku-img" />
+        <div class="share-content">
+          <div class="card-header">Happy Birthday Alhaji Atiku Abubakar 🎉</div>
+
+          <div class="score-section">
+            <p class="username" id="cardName">Name: Guest</p>
+            <p class="score" id="cardScore">I scored 0/0 on the Atiku Birthday Quiz!</p>
+          </div>
+
+          <div class="footer">
+            <p>Join the Atiku Movement</p>
+            <p class="phone">+234 800 000 0000</p>
+          </div>
+        </div>
+      </aside>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
