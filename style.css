@@ -46,8 +46,8 @@ button { cursor: pointer; border: none; padding: 10px 14px; border-radius: 10px;
 /* ---------- SHARE CARD (PORTRAIT 1080x1920) ---------- */
 /* ------------------ SHARE CARD (1080x1920 PORTRAIT) ------------------ */
 .share-card {
-  width: 1080px;
-  height: 1920px;
+  width: 540px;
+  height: 960px;
   background: linear-gradient(180deg, #020b18 0%, #061a33 100%);
   color: #ffffff;
   font-family: "Poppins", system-ui, sans-serif;
