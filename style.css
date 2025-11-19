@@ -44,38 +44,87 @@ button { cursor: pointer; border: none; padding: 10px 14px; border-radius: 10px;
 .confetti-canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:5; }
 
 /* ---------- SHARE CARD (PORTRAIT 1080x1920) ---------- */
+/* ------------------ SHARE CARD (1080x1920 PORTRAIT) ------------------ */
 .share-card {
-  width: 1080px; height: 1920px;
-  padding: 48px;
-  border-radius: 28px;
-  background:#ffffff;
-  border: 8px solid #083a8c; /* Atiku blue */
-  color:#071427;
-  font-family: 'Poppins', system-ui, Arial;
+  width: 1080px;
+  height: 1920px;
+  background: linear-gradient(180deg, #020b18 0%, #061a33 100%);
+  color: #ffffff;
+  font-family: "Poppins", system-ui, sans-serif;
   position: relative;
-  display: block;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  border: 8px solid #d4af37;
+  border-radius: 30px;
 }
 
-/* Atiku image top-right */
-.atiku-img {
-  width: 210px; height:210px; object-fit:cover;
-  border-radius: 14px; position:absolute; top:48px; right:48px;
-  border: 5px solid #fff; box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+/* Top headings */
+.share-title-small {
+  font-size: 38px;
+  color: #d4af37;
+  letter-spacing: 1px;
 }
 
-/* Share content (leave space for image) */
-.share-content { padding-right: 280px; }
+.share-title-main {
+  font-size: 64px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
 
-/* Header & texts */
-.card-header { font-size: 52px; color:#083a8c; font-weight:900; margin-bottom: 28px; line-height:1.05; }
-.score-section .username { font-size: 36px; color:#071427; margin-bottom:10px; }
-.score-section .score { font-size: 48px; color:#083a8c; font-weight:900; }
+/* Circular Atiku Image */
+.share-photo {
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 12px solid #d4af37;
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+  margin-bottom: 40px;
+}
+
+/* Score & Username */
+.share-username {
+  font-size: 46px;
+  margin-bottom: 10px;
+}
+
+.share-score {
+  font-size: 72px;
+  font-weight: 900;
+  color: #d4af37;
+  margin-bottom: 30px;
+}
+
+/* CTA */
+.share-cta {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 40px;
+}
 
 /* Footer */
-.footer { position:absolute; left:48px; bottom:48px; font-size: 36px; color:#071427; }
-.footer .phone { color:#083a8c; font-weight:900; margin-top:6px; }
+.share-footer {
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  text-align: center;
+  font-size: 36px;
+  color: #d4af37;
+}
 
-/* Responsive: reduce share-card width for smaller screens when generating (still high quality via scale) */
-@media (max-width: 600px) {
-  .container { margin: 16px auto; padding: 16px; }
+.share-footer:before {
+  content: "";
+  width: 60%;
+  height: 3px;
+  background: #d4af37;
+  margin: 0 auto 20px;
+  display: block;
+  opacity: 0.6;
 }
