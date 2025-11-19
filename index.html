@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -6,85 +6,84 @@
   <title>Happy Birthday Atiku - Quiz Card</title>
 
   <link rel="stylesheet" href="style.css" />
-  <!-- html2canvas and canvas-confetti from CDN -->
+  <!-- html2canvas and canvas-confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <!-- Moving background text -->
-  <div class="bg-marquee">
+  <!-- Animated moving background text -->
+  <div class="bg-marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span> Happy Birthday Alhaji Atiku </span>
+      <span> Happy Birthday Alhaji Atiku 🎉</span>
       <span>• Sponsored by Sheik Ahmad Tijjani Umar Foundation •</span>
       <span> Happy Birthday Alhaji Atiku </span>
       <span>• Sponsored by Sheik Ahmad Tijjani Umar Foundation •</span>
     </div>
   </div>
 
-  <div class="container">
+  <main class="container" role="main">
     <img src="assets/logo.png" alt="Foundation Logo" class="logo" />
 
     <!-- Landing / name input -->
-    <div id="landing">
-      <h1> Happy Birthday Atiku! </h1>
+    <section id="landing" class="card">
+      <h1> Happy Birthday Alhaji Atiku Abubakar!! </h1>
       <p>Test your knowledge and unlock a surprise!</p>
 
-      <label for="playerName" class="sr">Your name (optional)</label>
       <input id="playerName" type="text" placeholder="Enter your name (will appear on card)" />
 
-      <button id="start-btn">Start Quiz</button>
-    </div>
+      <button id="start-btn" class="primary">Start Quiz</button>
+    </section>
 
     <!-- Quiz -->
-    <div id="quiz" class="hidden">
+    <section id="quiz" class="card hidden" aria-hidden="true">
       <div id="question-container">
         <h2 id="question-text"></h2>
-        <div id="options"></div>
+        <div id="options" class="options"></div>
       </div>
-      <div id="feedback"></div>
-    </div>
+      <div id="feedback" class="feedback" aria-live="polite"></div>
+    </section>
 
     <!-- Final -->
-    <div id="final" class="hidden">
-      <div id="final-card" class="card-visible">
+    <section id="final" class="card hidden" aria-hidden="true">
+      <div id="final-card" class="final-card">
         <h1> Congratulations! 🎊</h1>
         <p id="score-text" class="final-score"></p>
-        <p class="final-msg">Happy Birthday Alhaji Atiku Abubakar! Wishing you continued leadership and inspiration.</p>
+        <p class="final-msg">Happy Birthday Alhaji Atiku Abubakar!!! Wishing you continued leadership and inspiration.</p>
 
-        <canvas id="confetti-canvas"></canvas>
+        <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
         <div class="final-actions">
-          <button id="download-btn">Download Image</button>
+          <button id="download-btn" class="primary">Download Image</button>
           <button id="share-whatsapp">Share to WhatsApp Status</button>
-           <!--
-          <button id="share-facebook">Share (Device Share)</button>
+          <button id="share-facebook">Device Share (Facebook etc.)</button>
+
+          <!--
           <button id="share-twitter">Share to Twitter</button>
-          <button id="play-again">Play Again</button>
           -->
+          <button id="play-again" class="secondary">Play Again</button>
         </div>
       </div>
 
-      <!-- Hidden shareable card (rendered off-screen but visible to html2canvas) -->
-      <div id="shareCard" class="share-card" aria-hidden="true" style="left:-9999px; position:absolute; top:0;">
-        <!-- Atiku image in top-right -->
+      <!-- Hidden shareable portrait card (off-screen for html2canvas capture) -->
+      <aside id="shareCard" class="share-card" aria-hidden="true" style="position:absolute; left:-9999px; top:0;">
         <img src="https://i.ibb.co/Zp9rZ6b3/Atiku-Image.jpg" alt="Atiku" class="atiku-img" />
         <div class="share-content">
           <div class="card-header">Happy Birthday Alhaji Atiku Abubakar 🎉</div>
 
           <div class="score-section">
-            <p class="username" id="cardName">Name: </p>
+            <p class="username" id="cardName">Name: Guest</p>
             <p class="score" id="cardScore">I scored 0/0 on the Atiku Birthday Quiz!</p>
           </div>
 
           <div class="footer">
             <p>Join the Atiku Movement</p>
-            <p class="phone">+234 08146479246</p>
+            <p class="phone">+234 800 000 000</p>
           </div>
         </div>
-      </div>
+      </aside>
 
-    </div> <!-- final -->
-  </div> <!-- container -->
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
