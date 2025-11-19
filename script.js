@@ -1,16 +1,16 @@
 /* script.js
-   - quiz logic
-   - confetti launch
-   - generate shareable image via html2canvas
-   - download + share via Web Share API fallback
+ - Quiz logic
+ - Confetti celebration
+ - html2canvas export to portrait image
+ - Download + Share via Web Share API (files) with fallbacks
 */
 
 const quizData = [
   { question: "Which year did Atiku become Nigeria's Vice President?", options: ["1999","2007","1997","2003"], answer: "1999" },
-  { question: "Which initiative focuses on youth empowerment by the foundation?", options: ["Youth Digital Impact Program", "Clean Nigeria Campaign", "Eco Fund", "None"], answer: "Youth Digital Impact Program" },
+  { question: "Which initiative focuses on youth empowerment by the foundation?", options: ["Youth Digital Impact Program","Clean Nigeria Campaign","Eco Fund","None"], answer: "Youth Digital Impact Program" },
   { question: "Atiku is known for advocating which area in Nigeria?", options: ["Education","Sports","Transportation","Tourism"], answer: "Education" },
   { question: "Which sector does the foundation emphasize for youth training?", options: ["Digital skills","Agriculture only","Only sports","Manufacturing"], answer: "Digital skills" },
-  { question: "Who founded the Youth Digital Impact Program?", options: ["Sheik Ahmad Tijjani Umar", "An NGO", "State Govt", "A business"], answer: "Sheik Ahmad Tijjani Umar" }
+  { question: "Who founded the Youth Digital Impact Program?", options: ["Sheik Ahmad Tijjani Umar","An NGO","State Govt","A business"], answer: "Sheik Ahmad Tijjani Umar" }
 ];
 
 let currentQuestion = 0;
@@ -41,7 +41,7 @@ const shareCard = document.getElementById('shareCard');
 const cardName = document.getElementById('cardName');
 const cardScore = document.getElementById('cardScore');
 
-// start quiz
+// Start quiz
 startBtn.addEventListener('click', () => {
   landing.classList.add('hidden');
   quiz.classList.remove('hidden');
@@ -50,8 +50,8 @@ startBtn.addEventListener('click', () => {
   loadQuestion();
 });
 
-// load a question
-function loadQuestion(){
+// Load question
+function loadQuestion() {
   feedback.textContent = '';
   const q = quizData[currentQuestion];
   questionText.textContent = q.question;
@@ -64,10 +64,10 @@ function loadQuestion(){
   });
 }
 
-// check answer
-function checkAnswer(selected){
+// Check answer
+function checkAnswer(selected) {
   const q = quizData[currentQuestion];
-  if (selected === q.answer){
+  if (selected === q.answer) {
     score++;
     feedback.textContent = '✅ Correct!';
     feedback.style.color = 'green';
@@ -77,77 +77,64 @@ function checkAnswer(selected){
   }
   currentQuestion++;
   setTimeout(() => {
-    if (currentQuestion < quizData.length){
-      loadQuestion();
-    } else {
-      showFinal();
-    }
-  }, 700);
+    if (currentQuestion < quizData.length) loadQuestion();
+    else showFinal();
+  }, 650);
 }
 
-// show final
-function showFinal(){
+// Show final
+function showFinal() {
   quiz.classList.add('hidden');
   final.classList.remove('hidden');
   scoreText.textContent = `You scored ${score}/${quizData.length}!`;
 
-  // write to hidden share card
+  // Update off-screen share card content
   const userName = (playerNameInput.value || 'Guest').trim();
   cardName.textContent = `Name: ${userName}`;
   cardScore.textContent = `I scored ${score}/${quizData.length} on the Atiku Birthday Quiz!`;
 
-  // launch confetti
-  launchConfetti();
-
-  // ensure shareCard is rendered by browser (it's offscreen but visible)
+  // Show shareCard off-screen so html2canvas can render it (keeps off-UI)
   shareCard.style.display = 'block';
+
+  // Launch confetti
+  launchConfetti();
 }
 
-// confetti using canvas-confetti
-function launchConfetti(){
-  // use the included confetti lib
+// Confetti using canvas-confetti library
+function launchConfetti() {
+  // use the CDN confetti function
   const duration = 4 * 1000;
-  const end = Date.now() + duration;
+  const animationEnd = Date.now() + duration;
 
-  (function frame(){
-    confetti({
-      particleCount: 6,
-      angle: 60,
-      spread: 55,
-      origin: { x: 0 },
-    });
-    confetti({
-      particleCount: 6,
-      angle: 120,
-      spread: 55,
-      origin: { x: 1 },
-    });
-
-    if (Date.now() < end) {
-      requestAnimationFrame(frame);
-    }
+  (function frame() {
+    confetti({ particleCount: 6, angle: 60, spread: 55, origin: { x: 0 } });
+    confetti({ particleCount: 6, angle: 120, spread: 55, origin: { x: 1 } });
+    if (Date.now() < animationEnd) requestAnimationFrame(frame);
   })();
 }
 
-// generate image using html2canvas
-async function generateShareImage() {
-  // ensure share card is visible to the renderer
+// Generate portrait image (high quality)
+async function generateShareImagePNG() {
+  // ensure shareCard is visible and rendered
   shareCard.style.display = 'block';
 
-  // use high scale for quality
-  const canvas = await html2canvas(shareCard, { scale: 3, useCORS: true, backgroundColor: null });
+  // html2canvas with high scale for quality
+  const canvas = await html2canvas(shareCard, {
+    scale: 3,
+    useCORS: true,
+    backgroundColor: '#ffffff'
+  });
 
-  // restore hidden positioning (still off-screen)
-  // keep shareCard off-screen so it doesn't show in UI
-  shareCard.style.display = 'block';
-
-  return canvas.toDataURL('image/png');
+  // return as data URL and blob
+  const dataUrl = canvas.toDataURL('image/png');
+  const blob = await (await fetch(dataUrl)).blob();
+  return { dataUrl, blob };
 }
 
-// download handler
+// Download image
 downloadBtn.addEventListener('click', async () => {
   try {
-    const dataUrl = await generateShareImage();
+    const { dataUrl } = await generateShareImagePNG();
     const link = document.createElement('a');
     link.href = dataUrl;
     link.download = `Atiku_Birthday_${Date.now()}.png`;
@@ -155,85 +142,76 @@ downloadBtn.addEventListener('click', async () => {
     link.click();
     link.remove();
   } catch (err) {
-    alert('Could not generate image. Please try again.');
     console.error(err);
+    alert('Download failed. Please try again.');
   }
 });
 
-// share via Web Share API if supported (with file)
-async function shareFileUsingWebShare(dataUrl, filename, text) {
+// Generic file share using Web Share API (files)
+async function tryNativeFileShare(blob, filename, text) {
   try {
-    const blob = await (await fetch(dataUrl)).blob();
     const file = new File([blob], filename, { type: blob.type });
-
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({
-        files: [file],
-        title: "Atiku Birthday Quiz",
-        text
-      });
+      await navigator.share({ files: [file], title: 'Atiku Birthday Quiz', text });
       return true;
     }
     return false;
   } catch (err) {
-    console.warn('Web Share failed', err);
+    console.warn('Native share error', err);
     return false;
   }
 }
 
-// WhatsApp share button - attempt native share with file, otherwise fallback to wa.me text
+// WhatsApp share: try native share (Android), fallback to wa.me with text + download prompt
 shareWhatsApp.addEventListener('click', async () => {
   const shareText = `I scored ${score}/${quizData.length} on the Atiku Birthday Quiz! 🎉 Join the Atiku Movement: +234 800 000 0000`;
   try {
-    const dataUrl = await generateShareImage();
-    const usedNative = await shareFileUsingWebShare(dataUrl, 'AtikuQuiz.png', shareText);
-    if (!usedNative) {
-      // fallback: direct prefilled text
-      const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-      window.open(waUrl, '_blank');
-      alert('If you want to share an image to WhatsApp Status, download the card and upload to your Status manually (Android allows direct share via device share).');
+    const { blob } = await generateShareImagePNG();
+    const didShare = await tryNativeFileShare(blob, `AtikuQuiz_${Date.now()}.png`, shareText);
+    if (!didShare) {
+      // fallback: direct text prefilled
+      window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+      alert('Direct image share to WhatsApp Status is not supported by this browser. The image has been prepared — please download it and upload to your WhatsApp Status manually.');
     }
   } catch (err) {
     console.error(err);
-    alert('Sharing not supported on this device. Please download the image and upload to your WhatsApp status.');
+    alert('Sharing failed. Please download the image and upload to your WhatsApp Status manually.');
   }
 });
 
-// Facebook share
+// Facebook / device share button
 shareFacebook.addEventListener('click', async () => {
   const shareText = `I scored ${score}/${quizData.length} on the Atiku Birthday Quiz! 🎉`;
   try {
-    const dataUrl = await generateShareImage();
-    const usedNative = await shareFileUsingWebShare(dataUrl, 'AtikuQuiz.png', shareText);
-    if (!usedNative) {
-      alert('Please download the image and post to Facebook/Stories manually (or use your device share options).');
+    const { blob } = await generateShareImagePNG();
+    const didShare = await tryNativeFileShare(blob, `AtikuQuiz_${Date.now()}.png`, shareText);
+    if (!didShare) {
+      // Download fallback
+      const { dataUrl } = await generateShareImagePNG();
       const link = document.createElement('a');
       link.href = dataUrl;
       link.download = `Atiku_Birthday_${Date.now()}.png`;
       document.body.appendChild(link);
       link.click();
       link.remove();
+      alert('Your device/browser does not support direct image sharing. The image was downloaded for manual upload to Facebook.');
     }
   } catch (err) {
     console.error(err);
-    alert('Sharing not available — please download the image and upload to Facebook.');
+    alert('Could not share image. Please download and upload manually.');
   }
 });
 
-// Twitter share (link-based - image cannot be auto-uploaded)
+// Twitter share (intent link - image must be attached manually)
 shareTwitter.addEventListener('click', async () => {
-  try {
-    const text = `I scored ${score}/${quizData.length} on the Atiku Birthday Quiz! 🎉`;
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
-  } catch (err) {
-    console.error(err);
-  }
+  const text = `I scored ${score}/${quizData.length} on the Atiku Birthday Quiz! 🎉`;
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
 });
 
-// play again
+// Play again
 playAgainBtn.addEventListener('click', () => {
   final.classList.add('hidden');
   landing.classList.remove('hidden');
-  shareCard.style.display = 'none'; // hide offscreen card
+  shareCard.style.display = 'none';
 });
