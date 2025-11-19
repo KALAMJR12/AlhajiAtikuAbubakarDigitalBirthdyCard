@@ -46,8 +46,8 @@ button { cursor: pointer; border: none; padding: 10px 14px; border-radius: 10px;
 /* ---------- SHARE CARD (PORTRAIT 1080x1920) ---------- */
 /* ------------------ SHARE CARD (1080x1920 PORTRAIT) ------------------ */
 .share-card {
-  width: 540px;
-  height: 960px;
+  width: 1080px;
+  height: 1920px;
   background: linear-gradient(180deg, #020b18 0%, #061a33 100%);
   color: #ffffff;
   font-family: "Poppins", system-ui, sans-serif;
@@ -58,7 +58,7 @@ button { cursor: pointer; border: none; padding: 10px 14px; border-radius: 10px;
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
-  border: 8px solid #d4af37;
+  border: 10px solid #d4af37;
   border-radius: 30px;
 }
 
