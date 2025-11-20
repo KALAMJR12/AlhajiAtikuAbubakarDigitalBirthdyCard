@@ -1,87 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy Birthday Atiku - Quiz Card</title>
-
-  <link rel="stylesheet" href="style.css" />
-  <!-- html2canvas and canvas-confetti CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Happy Birthday Atiku! 🎉</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-  <!-- Animated moving background text -->
-  <div class="bg-marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>🎉 Happy Birthday Alhaji Atiku 🎉</span>
-      <span>• Sponsored by Sheik Ahmad Tijjani Umar Foundation •</span>
-      <span>🎉 Happy Birthday Alhaji Atiku 🎉</span>
-      <span>• Sponsored by Sheik Ahmad Tijjani Umar Foundation •</span>
+    <div class="animated-background">
+        <div class="bg-text">Happy Birthday Alhaji Atiku • Sponsored by Sheik Ahmad Tijjani Umar • </div>
+        <div class="bg-text">Happy Birthday Alhaji Atiku • Sponsored by Sheik Ahmad Tijjani Umar • </div>
     </div>
-  </div>
 
-  <main class="container" role="main">
-    <img src="https://i.ibb.co/Zp9rZ6b3/Atiku-Image.jpg" alt="Foundation Logo" class="logo" />
+    <div class="container">
+        <section id="landing-page" class="screen active">
+            <div class="landing-content">
+                <h1 class="main-title">🎉 Happy Birthday Atiku! 🎉</h1>
+                <p class="subtitle">Test your knowledge and unlock a surprise!</p>
+                <div class="name-input-container">
+                    <input type="text" id="user-name" class="name-input" placeholder="Enter your name" maxlength="30">
+                </div>
+                <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+            </div>
+        </section>
 
-    <!-- Landing / name input -->
-    <section id="landing" class="card">
-      <h1>🎉 Happy Birthday Atiku! 🎉</h1>
-      <p>Test your knowledge and unlock a surprise!</p>
+        <section id="quiz-page" class="screen">
+            <div class="quiz-content">
+                <div class="question-counter">
+                    <span id="current-question">1</span>/<span id="total-questions">5</span>
+                </div>
+                <h2 id="question-text" class="question-text"></h2>
+                <div id="options-container" class="options-container"></div>
+                <div id="feedback" class="feedback"></div>
+                <button id="next-btn" class="next-btn" onclick="nextQuestion()" style="display: none;">Next Question</button>
+            </div>
+        </section>
 
-      <input id="playerName" type="text" placeholder="Enter your name (will appear on card)" />
+        <section id="result-page" class="screen">
+            <div class="result-content">
+                <div id="result-card" class="result-card">
+                    <h2 class="card-title">🎉 Happy Birthday Alhaji Atiku 🎉</h2>
+                    <div class="image-container">
+                        <img src="https://i.ibb.co/Zp9rZ6b3/Atiku-Image.jpg" alt="Atiku" class="profile-image" crossorigin="anonymous">
+                    </div>
+                    <p class="sponsor-text">Sponsored by TJ Foundation</p>
+                    <p id="user-name-display" class="user-name-display"></p>
+                    <p id="score-text" class="score-text"></p>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn download-btn" onclick="downloadCard()">📥 Download Card</button>
+                    <button class="action-btn whatsapp-btn" onclick="shareToWhatsApp()">💬 Share to WhatsApp</button>
+                    <button class="action-btn facebook-btn" onclick="shareToFacebook()">📘 Share to Facebook</button>
+                    <button class="action-btn restart-btn" onclick="restartQuiz()">🔄 Retake Quiz</button>
+                </div>
+            </div>
+        </section>
+    </div>
 
-      <button id="start-btn" class="primary">Start Quiz</button>
-    </section>
+    <a href="https://app.netlify.com/drop" target="_blank" class="netlify-btn" title="Deploy on Netlify">
+        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+            <path fill="#00C7B7" d="M185.532 88.839l-.094-.004c-.252-1.391-.498-2.783-.737-4.177-.333-1.932-.662-3.866-.995-5.8-.065-.378-.116-.752-.197-1.13-.062-.293-.135-.583-.198-.876a90.662 90.662 0 0 0-.526-2.427c-.088-.369-.184-.736-.273-1.105-.447-1.825-.9-3.65-1.358-5.476-.11-.439-.222-.877-.334-1.315-.26-1.014-.518-2.028-.785-3.041-.118-.449-.243-.896-.364-1.344-.277-1.027-.556-2.053-.841-3.079-.127-.458-.258-.914-.387-1.372-.287-1.02-.574-2.04-.87-3.06-.136-.469-.277-.937-.415-1.405-.298-.999-.598-1.997-.907-2.995-.144-.466-.293-.931-.44-1.396-.32-1.006-.646-2.011-.98-3.016-.15-.45-.305-.898-.457-1.347-.347-1.02-.697-2.04-1.058-3.059-.155-.437-.316-.872-.473-1.308-.388-1.074-.783-2.147-1.19-3.218-.15-.395-.308-.787-.461-1.182-.52-1.335-1.057-2.666-1.609-3.994-.105-.252-.217-.503-.323-.754a235.638 235.638 0 0 0-1.662-3.845c-.117-.267-.241-.532-.359-.799-.36-.806-.714-1.613-1.085-2.418-.135-.294-.276-.586-.413-.88-.332-.712-.671-1.422-1.012-2.132-.145-.302-.286-.605-.432-.907-.346-.715-.697-1.428-1.053-2.142-.151-.302-.3-.605-.453-.907-.368-.73-.743-1.457-1.123-2.185-.153-.293-.311-.584-.466-.877-.405-.765-.816-1.528-1.238-2.29-.144-.26-.294-.518-.44-.777a224.89 224.89 0 0 0-1.344-2.392c-.17-.302-.345-.602-.518-.903-.399-.698-.801-1.394-1.211-2.09-.18-.306-.362-.611-.544-.917-.414-.699-.833-1.396-1.26-2.092-.183-.298-.37-.595-.555-.893-.44-.706-.885-1.41-1.339-2.113-.178-.276-.362-.55-.542-.825a214.922 214.922 0 0 0-1.427-2.153c-.187-.28-.378-.558-.567-.837-.46-.678-.923-1.355-1.394-2.03-.185-.266-.375-.53-.562-.796-.51-.725-1.027-1.447-1.55-2.168-.177-.244-.357-.487-.535-.73-.58-.79-1.166-1.577-1.764-2.36-.126-.166-.26-.33-.387-.496l.188-.428.42.209c1.089.54 2.19 1.066 3.272 1.628.295.153.572.334.856.497.207.118.42.229.628.347.28.159.552.325.829.489.276.164.557.32.832.49.266.164.523.338.786.507.291.188.586.367.875.56.25.168.492.345.739.516.303.21.611.412.91.626.228.164.448.336.674.503.325.239.655.47.976.715.2.152.39.313.587.467.375.293.754.579 1.124.88.152.123.299.25.449.374.5.413.997.83 1.487 1.255.006.006.013.01.02.016a240.613 240.613 0 0 1 2.297 2.055c.016.016.034.03.05.047.42.382.832.771 1.24 1.163l.002.002c.016.015.031.031.047.046.406.39.806.787 1.202 1.186q.021.021.041.043c.016.016.031.031.046.047.39.398.775.8 1.156 1.206.02.02.038.042.058.062.015.016.031.031.046.047.376.405.746.814 1.113 1.226.022.025.043.05.065.074.014.016.03.031.044.047.36.416.715.837 1.067 1.26.025.03.05.06.075.09.013.016.029.031.043.047.345.423.684.85 1.02 1.28.028.035.056.07.083.106.012.016.027.031.041.047.329.427.653.858.973 1.291.03.041.061.082.091.123.012.016.026.031.04.047.312.431.619.866.922 1.303.033.047.065.094.098.141.011.016.025.031.038.047.296.437.587.877.873 1.32.035.054.07.108.104.162.01.016.023.031.036.047.279.442.552.887.82 1.334.037.062.075.123.112.185.009.016.022.031.033.046.262.45.518.903.769 1.358.04.072.08.144.119.216.008.016.02.031.031.047.244.456.482.914.715 1.375.041.08.083.16.124.24.007.016.018.031.028.047.227.46.448.922.664 1.386.043.093.086.186.129.279.006.016.017.031.026.047.21.464.414.931.612 1.4.044.105.09.21.133.316.005.016.015.031.024.047.192.469.378.94.558 1.413.046.12.092.24.137.36.004.016.013.031.021.047.175.475.343.952.506 1.431.047.139.095.278.142.417.003.016.011.031.018.047.158.482.31.966.455 1.452.047.159.097.317.143.476.002.016.009.031.015.047.141.488.274.978.4 1.47.047.183.098.366.144.55.001.016.007.031.012.047.123.495.238.992.346 1.49.046.211.097.423.141.634v.047c.105.502.2 1.006.288 1.511.042.24.09.48.13.721 0 .015.003.031.007.047.081.515.153 1.032.217 1.55.036.291.078.582.112.874 0 .015.002.031.005.046.059.52.108 1.041.148 1.563.03.377.067.753.093 1.13 0 .014 0 .03.003.046.032.53.053 1.061.064 1.593.01.465.028.928.033 1.394 0 .005 0 .012.002.018.005.597 0 1.195-.02 1.794-.006.226-.006.452-.012.678-1.066 11.964-4.587 23.181-10.42 33.401a148.819 148.819 0 0 1-4.674 7.681c-.17.26-.345.516-.517.774-.2.3-.398.6-.6.898-.186.273-.377.542-.567.813-.194.276-.383.554-.58.828-.204.284-.413.565-.621.847-.19.257-.375.516-.568.772-.223.294-.452.584-.679.876-.185.237-.365.477-.553.713-.245.31-.496.617-.746.924-.178.218-.352.438-.532.655-.272.328-.549.653-.827.977-.17.198-.336.398-.508.595-.3.344-.606.684-.915 1.023-.16.176-.316.354-.478.529-.338.367-.683.728-1.028 1.09-.15.157-.297.316-.448.472-.399.412-.806.818-1.215 1.222-.13.128-.256.258-.387.386l-.006-.005c-.402.392-.81.777-1.223 1.16-.134.125-.27.248-.405.371-.405.371-.816.736-1.229 1.099-.139.122-.275.246-.415.367-.419.362-.843.718-1.27 1.073-.143.119-.285.239-.43.357-.448.365-.902.724-1.358 1.08-.144.113-.285.227-.43.339-.61.469-1.228.929-1.85 1.383zM150.85 4.175l-.03-.078.052-.029z"/>
+        </svg>
+        Deploy
+    </a>
 
-    <!-- Quiz -->
-    <section id="quiz" class="card hidden" aria-hidden="true">
-      <div id="question-container">
-        <h2 id="question-text"></h2>
-        <div id="options" class="options"></div>
-      </div>
-      <div id="feedback" class="feedback" aria-live="polite"></div>
-    </section>
-
-    <!-- Final -->
-    <section id="final" class="card hidden" aria-hidden="true">
-      <div id="final-card" class="final-card">
-        <h1>🎊 Congratulations! 🎊</h1>
-        <p id="score-text" class="final-score"></p>
-        <p class="final-msg">Happy Birthday Alhaji Atiku! Wishing you continued leadership and inspiration.</p>
-
-        <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
-
-        <div class="final-actions">
-          <button id="download-btn" class="primary">Download Image</button>
-          <button id="share-whatsapp">Share to WhatsApp Status</button>
-          <button id="share-facebook">Device Share (Facebook etc.)</button>
-          <button id="share-twitter">Share to Twitter</button>
-          <button id="play-again" class="secondary">Play Again</button>
-        </div>
-      </div>
-
-      <!-- Hidden shareable portrait card (off-screen for html2canvas capture) -->
-      <aside id="shareCard" class="share-card" aria-hidden="true" style="position:absolute; left:-9999px; top:0;">
-        <img src="https://i.ibb.co/Zp9rZ6b3/Atiku-Image.jpg" alt="Atiku" class="atiku-img" />
-        <div class="share-content">
-          <div class="card-header">Happy Birthday Alhaji Atiku Abubakar 🎉</div>
-
-          <div class="score-section">
-            <p class="username" id="cardName">Name: Guest</p>
-            <p class="score" id="cardScore">I scored 0/0 on the Atiku Birthday Quiz!</p>
-          </div>
-
-          <div class="footer">
-            <p>Join the Atiku Movement</p>
-            <p class="phone">+234 800 000 0000</p>
-          </div>
-        </div>
-      </aside>
-
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
